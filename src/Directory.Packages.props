@@ -5,17 +5,17 @@
     <EntityFrameworkVersion>6.0.0</EntityFrameworkVersion>
   </PropertyGroup>
   <ItemGroup>
-    <PackageVersion Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageVersion Include="Newtonsoft.Json" Version="13.0.3" />
     <!--build related-->
     <PackageVersion Include="MinVer" Version="2.3.0" PrivateAssets="All" />
     <PackageVersion Include="SimpleExec" Version="6.2.0" />
     <PackageVersion Include="Bullseye" Version="3.3.0" />
     <PackageVersion Include="Microsoft.SourceLink.GitHub" Version="1.1.1" />
     <!--tests -->
-    <PackageVersion Include="FluentAssertions" Version="5.10.2" />
-    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.5.0" />
-    <PackageVersion Include="xunit" Version="2.4.1" />
-    <PackageVersion Include="xunit.runner.visualstudio" Version="2.4.1" PrivateAssets="All" />
+    <PackageVersion Include="FluentAssertions" Version="6.11.0" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.6.0" />
+    <PackageVersion Include="xunit" Version="2.4.2" />
+    <PackageVersion Include="xunit.runner.visualstudio" Version="2.4.5" PrivateAssets="All" />
     <!--our stuff -->
     <PackageVersion Include="IdentityModel" Version="6.1.0" />
     <!--microsoft extensions -->
@@ -28,8 +28,8 @@
     <!--misc -->
     <PackageVersion Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" Version="6.30.1" />
     <PackageVersion Include="System.IdentityModel.Tokens.Jwt" Version="5.6.0" />
-    <PackageVersion Include="System.Security.Principal.Windows" Version="4.7.0" />
-    <PackageVersion Include="AutoMapper" Version="10.0.0" />
+    <PackageVersion Include="System.Security.Principal.Windows" Version="5.0.0" />
+    <PackageVersion Include="AutoMapper" Version="12.0.1" />
     <!--microsoft asp.net core -->
     <PackageVersion Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="$(FrameworkVersion)" />
     <PackageVersion Include="Microsoft.AspNetCore.TestHost" Version="$(FrameworkVersion)" />
@@ -44,9 +44,9 @@
     <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="$(EntityFrameworkVersion)" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="$(EntityFrameworkVersion)" PrivateAssets="All" />
     <!--serilog-->
-    <PackageVersion Include="Serilog" Version="2.9.0" />
-    <PackageVersion Include="Serilog.AspNetCore" Version="3.2.0" />
-    <PackageVersion Include="Serilog.Sinks.Console" Version="3.1.1" />
-    <PackageVersion Include="Serilog.Sinks.File" Version="4.1.0" />
+    <PackageVersion Include="Serilog" Version="2.12.0" />
+    <PackageVersion Include="Serilog.AspNetCore" Version="7.0.0" />
+    <PackageVersion Include="Serilog.Sinks.Console" Version="4.1.0" />
+    <PackageVersion Include="Serilog.Sinks.File" Version="5.0.0" />
   </ItemGroup>
 </Project>

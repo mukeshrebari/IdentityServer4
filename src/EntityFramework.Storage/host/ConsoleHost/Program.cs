@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using IdentityServer4.EntityFramework.Storage;
 using Microsoft.EntityFrameworkCore;
@@ -10,7 +10,7 @@ namespace ConsoleHost
     {
         static void Main(string[] args)
         {
-            var connectionString = "server=(localdb)\\mssqllocaldb;database=IdentityServer4.EntityFramework-4.0.0;trusted_connection=yes;";
+            var connectionString = "Server=localhost,1433;Database=IdentityServer4;Persist Security Info=True;User ID=sa;Password=Mukesh@123;";
 
             var services = new ServiceCollection();
             services.AddLogging(b => b.AddConsole().SetMinimumLevel(LogLevel.Trace));
