@@ -3,6 +3,7 @@
 
 
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace IdentityServer4
 {
@@ -10,9 +11,9 @@ namespace IdentityServer4
     {
         private static readonly JsonSerializerOptions Options = new JsonSerializerOptions
         {
-            IgnoreNullValues = true
+            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
         };
-        
+
         public static string ToString(object o)
         {
             return JsonSerializer.Serialize(o, Options);

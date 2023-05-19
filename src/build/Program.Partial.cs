@@ -22,18 +22,34 @@ namespace build
             public const string SignBinary = "sign-binary";
             public const string SignPackage = "sign-package";
             public const string CopyPackOutput = "copy-pack-output";
+			public const string Restore = "restore";
+			public const string PushSrcd="navigatetosrc";
+			public const string PopSrcd="navigatefromsrc";
         }
 
         static void Main(string[] args)
         {
+			var projectFile = Directory.GetFiles("./src", "*.csproj").FirstOrDefault();
+				
             Target(Targets.CleanBuildOutput, () =>
-            {
-                //Run("dotnet", "clean -c Release -v m --nologo", echoPrefix: Prefix);
+            {				
+				if (projectFile == null)
+				{
+					Console.WriteLine("No .csproj file found in the current directory.");
+					return;
+				}
+                Run("dotnet", $"clean {projectFile} -c Release -v m --nologo", echoPrefix: Prefix);
             });
+			Target(Targets.Restore, DependsOn(Targets.CleanBuildOutput), () =>
+			{
+				//Run("dotnet", "restore", echoPrefix: Prefix);
+			});
 
-            Target(Targets.Build, DependsOn(Targets.CleanBuildOutput), () =>
+            Target(Targets.Build, DependsOn(Targets.Restore), () =>
             {
-                Run("dotnet", "build -c Release --nologo", echoPrefix: Prefix);
+				Console.WriteLine($"Current directory: {Directory.GetCurrentDirectory()}");
+				Console.WriteLine($"Directory contents: {string.Join(", ", Directory.GetFiles("."))}");				
+                Run("dotnet", $"build {projectFile} -c Release --nologo", echoPrefix: Prefix);
             });
 
             Target(Targets.SignBinary, DependsOn(Targets.Build), () =>
@@ -43,7 +59,9 @@ namespace build
 
             Target(Targets.Test, DependsOn(Targets.Build), () =>
             {
-                Run("dotnet", $"test -c Release --no-build", echoPrefix: Prefix);
+                //Run("dotnet", $"test -c Release --no-build", echoPrefix: Prefix);
+				Run("dotnet", $"test {projectFile} -c Release --no-build --logger:\"console;verbosity=detailed\"", echoPrefix: Prefix);
+
             });
 
             Target(Targets.CleanPackOutput, () =>
@@ -57,7 +75,6 @@ namespace build
             Target(Targets.Pack, DependsOn(Targets.Build, Targets.CleanPackOutput), () =>
             {
                 var project = Directory.GetFiles("./src", "*.csproj", SearchOption.TopDirectoryOnly).OrderBy(_ => _).First();
-
                 Run("dotnet", $"pack {project} -c Release -o \"{Directory.CreateDirectory(packOutput).FullName}\" --no-build --nologo", echoPrefix: Prefix);
             });
 

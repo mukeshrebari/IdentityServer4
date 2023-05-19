@@ -12,10 +12,10 @@ namespace IdentityServer4.Logging
     /// </summary>
     internal static class LogSerializer
     {
-        static readonly JsonSerializerOptions Options = new JsonSerializerOptions
+        static readonly JsonSerializerOptions Options = new()
         {
-            IgnoreNullValues = true,
-            WriteIndented = true
+            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+            WriteIndented = true,
         };
 
         static LogSerializer()

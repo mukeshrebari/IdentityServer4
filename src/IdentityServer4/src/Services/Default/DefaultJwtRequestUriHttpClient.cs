@@ -39,28 +39,29 @@ namespace IdentityServer4.Services
         public async Task<string> GetJwtAsync(string url, Client client)
         {
             var req = new HttpRequestMessage(HttpMethod.Get, url);
-            req.Properties.Add(IdentityServerConstants.JwtRequestClientKey, client);
+            req.Options.Set(new(IdentityServerConstants.JwtRequestClientKey), client);
 
             var response = await _client.SendAsync(req);
-            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            if (response.StatusCode is System.Net.HttpStatusCode.OK)
             {
                 if (_options.StrictJarValidation)
                 {
-                    if (!string.Equals(response.Content.Headers.ContentType.MediaType,
+                    if (response.Content.Headers.ContentType is not null &&
+                        !string.Equals(response.Content.Headers.ContentType.MediaType,
                         $"application/{JwtClaimTypes.JwtTypes.AuthorizationRequest}", StringComparison.Ordinal))
                     {
-                        _logger.LogError("Invalid content type {type} from jwt url {url}", response.Content.Headers.ContentType.MediaType, url);
+                        _logger.LogError("Invalid content type {Type} from jwt url {Url}", response.Content.Headers.ContentType.MediaType, url);
                         return null;
                     }
                 }
 
-                _logger.LogDebug("Success http response from jwt url {url}", url);
-                
+                _logger.LogDebug("Success http response from jwt url {Url}", url);
+
                 var json = await response.Content.ReadAsStringAsync();
                 return json;
             }
-                
-            _logger.LogError("Invalid http status code {status} from jwt url {url}", response.StatusCode, url);
+
+            _logger.LogError("Invalid http status code {Status} from jwt url {Url}", response.StatusCode, url);
             return null;
         }
     }

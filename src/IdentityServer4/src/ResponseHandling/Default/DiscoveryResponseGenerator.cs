@@ -334,13 +334,13 @@ namespace IdentityServer4.ResponseHandling
             }
 
             // custom entries
-            if (!Options.Discovery.CustomEntries.IsNullOrEmpty())
+            if (!CollectionUtilities.IsNullOrEmpty(Options.Discovery.CustomEntries))
             {
                 foreach ((string key, object value) in Options.Discovery.CustomEntries)
                 {
                     if (entries.ContainsKey(key))
                     {
-                        Logger.LogError("Discovery custom entry {key} cannot be added, because it already exists.", key);
+                        Logger.LogError("Discovery custom entry {Key} cannot be added, because it already exists", key);
                     }
                     else
                     {
@@ -348,7 +348,7 @@ namespace IdentityServer4.ResponseHandling
                         {
                             if (customValueString.StartsWith("~/") && Options.Discovery.ExpandRelativePathsInCustomEntries)
                             {
-                                entries.Add(key, baseUrl + customValueString.Substring(2));
+                                entries.Add(key, string.Concat(baseUrl, customValueString.AsSpan(2)));
                                 continue;
                             }
                         }
@@ -465,7 +465,7 @@ namespace IdentityServer4.ResponseHandling
                         x5t = jsonWebKey.X5t,
                         e = jsonWebKey.E,
                         n = jsonWebKey.N,
-                        x5c = jsonWebKey.X5c?.Count == 0 ? null : jsonWebKey.X5c.ToArray(),
+                        x5c = jsonWebKey.X5c?.Count == 0 ? null : jsonWebKey.X5c!.ToArray(),
                         alg = jsonWebKey.Alg,
                         crv = jsonWebKey.Crv,
                         x = jsonWebKey.X,

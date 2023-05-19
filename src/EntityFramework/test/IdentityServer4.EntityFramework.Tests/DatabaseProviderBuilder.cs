@@ -1,4 +1,4 @@
-﻿// Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
+// Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
@@ -29,14 +29,14 @@ namespace IdentityServer4.EntityFramework.IntegrationTests
         {
             var builder = new DbContextOptionsBuilder<T>();
             builder.UseSqlServer(
-                $@"Data Source=(LocalDb)\MSSQLLocalDB;database=Test.IdentityServer4.EntityFramework-3.1.0.{name};trusted_connection=yes;");
+                $@"Server=localhost,1433;Database=IdentityServer4.{name};Persist Security Info=True;User ID=sa;Password=Mukesh@123;");
             return builder.Options;
         }
 
         public static DbContextOptions<T> BuildAppVeyorSqlServer2016<T>(string name) where T : DbContext
         {
             var builder = new DbContextOptionsBuilder<T>();
-            builder.UseSqlServer($@"Server=(local)\SQL2016;Database=Test.IdentityServer4.EntityFramework-3.1.0.{name};User ID=sa;Password=Password12!");
+            builder.UseSqlServer($@"Server=localhost,1433;Database=IdentityServer4.{name};Persist Security Info=True;User ID=sa;Password=Mukesh@123;");
             return builder.Options;
         }
     }
